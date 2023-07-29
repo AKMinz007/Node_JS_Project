@@ -49,22 +49,15 @@ describe('test / post and its API',()=>{
                 title:"test post",
                 content:"this is a test post content"
             }
-            // {
-            //     id:'dummyId',
-            //     title:"test post",
-            //     content:"this is a test post content" 
-            //   }
-            jest.spyOn(jwt,'verify').mockRejectedValueOnce({
-                id:'dummyId',
-                title:"test post",
-                content:"this is a test post content" 
-              });
-             await request(app).post('/post/createPost').send(post).expect(401);
 
+            const asyncjest =  jest.spyOn(jwt,'verify').mockRejectedValue(new Error("Authentication failed"));
+             let response = await request(app).post("/post/createPost").send(post).expect(401);
+             console.log(response._body);
+             await asyncjest();
             jest.spyOn(Post.prototype,'save').mockRejectedValue(new Error("Internal server error"));
-            const response = await request(app).post('/post/createPost').send(post).set("Authorization",`Bearer ${token}`)
+            const Response = await request(app).post('/post/createPost').set('Authorization',`Bearer ${token}`).send(post)
             .expect(500);
-            console.log(response._body);
+            console.log(Response._body);
         })
     })
 })

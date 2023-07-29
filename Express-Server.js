@@ -7,14 +7,13 @@ const userRouter = require('./router/user');
 const taskRouter = require('./Practice/validateUser');
 const postRouter = require('./router/post');
 const uploadRoute = require('./router/upload');
+require("dotenv").config();
 
 
-// app.use(body_parser.urlencoded({extended:false}));
-// app.use(body_parser.json());
 
 app.use(express.json());
 
-mongoose.connect(`mongodb+srv://anchalminz71:RbnbOwYxRubV4fRX@cluster0.0wjdmaa.mongodb.net/?retryWrites=true&w=majority`)
+mongoose.connect(process.env.MONGO_DATABASE_URL)
     .then((response) => {
         console.log("Connected to mongo DB successfully !!!!!");
     })
