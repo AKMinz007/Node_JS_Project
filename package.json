@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "test-handle": "jest --detectOpenHandles"
+    "test-handle": "jest --detectOpenHandles",
+    "build": "npm install",
+    "start": "node Express-Server.js"
   },
   "author": "Anchal Kumar Minz",
   "license": "ISC",
